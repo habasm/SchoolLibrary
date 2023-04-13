@@ -1,30 +1,33 @@
-require_relative 'nameable'
-require_relative 'base_decoder'
-require_relative 'capitalize_decoder'
-require_relative 'trimer_decoder'
+require_relative 'rental'
+
+class Nameable
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
+  end
+
+  def correct_name
+    raise NotImplementedError, 'Kindly Implement correct_name method to return the correct name'
+  end
+end
 
 class Person < Nameable
-  attr_accessor :name, :age, :rental
+  attr_accessor :name, :rental, :age, :id
 
-  def initialize(age, name = "Unknown", parent_permission = true)
+  def initialize(name, age, id)
     super(name)
-
     @name = name
-
     @age = age
-
+    @id = id
     @rental = []
   end
 
   def can_use_services?
     if is_of_age? || @parent_permission
-
       true
-
     else
-
       false
-
     end
   end
 
@@ -43,14 +46,30 @@ class Person < Nameable
   end
 end
 
-person = Person.new(22, 'maximilianus')
+class BaseDecorator < Nameable
+  def initialize(nameable)
+    super
 
-puts person.correct_name
+    @nameable = nameable
+  end
+end
 
-capitalized_person = CapitalizeDecorator.new(person)
+class CapitalizeDecorator < BaseDecorator
+  def correct_name
+    @nameable.correct_name.capitalize
+  end
+end
 
-puts capitalized_person.correct_name
+class TrimmerDecorator < BaseDecorator
+  def correct_name
+    if @nameable.correct_name.length > 10
 
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
+      @nameable.correct_name[0..9]
 
-puts capitalized_trimmed_person.correct_name
+    else
+
+      @nameable.correct_name
+
+    end
+  end
+end

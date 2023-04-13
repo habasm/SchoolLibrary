@@ -1,17 +1,23 @@
-class Rental
-  attr_accessor :date
+require_relative 'person'
 
-  attr_accessor :book, :person
+class Student < Person
+  attr_accessor :classroom
 
-  def initialize(date, book, person)
-    @date = date
+  def initialize(id, age, name, classroom, parent_permission)
+    super(name, age, id)
+    @classroom = classroom
+    @parent_permission = parent_permission
+  end
 
-    @book = book
+  def play_hooky
+    '¯\(ツ)/¯'
+  end
 
-    book.rental << self
+  def add_classroom=(classroom)
+    @classroom = classroom
 
-    @person = person
 
-    person.rental << self
+
+    classroom.students.push(self) unless classroom.students.include?(self)
   end
 end
