@@ -5,6 +5,6 @@ class BaseDecorator < Nameable
   end
 
   def correct_name
-    raise NotImplementedError, 'You must implement the correct_name method'
+    @nameable.correct_name
   end
 end
