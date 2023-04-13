@@ -4,14 +4,16 @@ require_relative 'capitalize_decoder'
 require_relative 'trimer_decoder'
 
 class Person < Nameable
-  attr_accessor :name, :age
+  attr_accessor :name, :age, :rental
 
-  def initialize(age, name)
+  def initialize(age, name = "Unknown", parent_permission = true)
     super(name)
 
     @name = name
 
     @age = age
+
+    @rental = []
   end
 
   def can_use_services?
@@ -30,12 +32,17 @@ class Person < Nameable
     @name
   end
 
+  def add_rental(date, book)
+    Rental.new(date, book, self)
+  end
+
   private
 
   def of_age?
     @age >= 18
   end
 end
+
 
 person = Person.new(22, 'maximilianus')
 

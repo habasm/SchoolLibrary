@@ -2,7 +2,7 @@ require_relative 'rental'
 class Book
   attr_accessor :title, :author
 
-  attr_reader :rental
+  attr_accessor :rental
 
   def initialize(title, author)
     @title = title
