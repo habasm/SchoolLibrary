@@ -37,7 +37,6 @@ class Person < Nameable
   end
 end
 
-
 person = Person.new(22, 'maximilianus')
 
 puts person.correct_name
