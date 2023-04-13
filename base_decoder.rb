@@ -5,5 +5,3 @@ class BaseDecorator < Nameable
     @nameable = nameable
   end
 end
-
-
