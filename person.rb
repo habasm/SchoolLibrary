@@ -1,16 +1,8 @@
+require_relative 'nameable'
+require_relative 'base_decoder'
+require_relative 'capitalize_decoder'
+require_relative 'trimer_decoder'
 require_relative 'rental'
-
-class Nameable
-  attr_accessor :name
-
-  def initialize(name)
-    @name = name
-  end
-
-  def correct_name
-    raise NotImplementedError, 'Kindly Implement correct_name method to return the correct name'
-  end
-end
 
 class Person < Nameable
   attr_accessor :name, :rental, :age, :id
@@ -46,30 +38,8 @@ class Person < Nameable
   end
 end
 
-class BaseDecorator < Nameable
-  def initialize(nameable)
-    super
 
-    @nameable = nameable
-  end
-end
 
-class CapitalizeDecorator < BaseDecorator
-  def correct_name
-    @nameable.correct_name.capitalize
-  end
-end
 
-class TrimmerDecorator < BaseDecorator
-  def correct_name
-    if @nameable.correct_name.length > 10
 
-      @nameable.correct_name[0..9]
 
-    else
-
-      @nameable.correct_name
-
-    end
-  end
-end
